@@ -7,6 +7,13 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "web": {
+      "bundler": "metro",
+      "baseUrl": "/expo-todo-test"
+    },
+  "experiments":{
+    "baseUrl":"/expo-todo-test"
+  },
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -23,8 +30,6 @@
       "edgeToEdgeEnabled": true
     },
     "web": {
-      "bundler": "metro",
-      "baseUrl": "/expo-todo-test",
       "favicon": "./assets/favicon.png"
     }
   }
