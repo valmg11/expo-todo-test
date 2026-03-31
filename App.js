@@ -77,7 +77,7 @@ export default function App() {
                   console.log(item.key, item.completed)
                 }}
                 checkedIcon={<FontAwesome name="check-square" size={25} color="#ff9a56" />}
-                uncheckedIcon={<FontAwesome name="square" size={25} color="#cccccc" />}
+                uncheckedIcon={<FontAwesome name="square-o" size={25} color="#cccccc" />}
               />
             </View>
           )
