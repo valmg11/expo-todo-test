@@ -7,10 +7,6 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "web": {
-      "bundler": "metro",
-      "baseUrl": "/expo-todo-test"
-    },
   "experiments":{
     "baseUrl":"/expo-todo-test"
   },
