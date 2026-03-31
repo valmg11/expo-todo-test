@@ -3,6 +3,7 @@ import { useState,  } from "react";
 import { StyleSheet, Text, View, FlatList, Button } from "react-native";
 import { TextInput } from "react-native-web";
 import { CheckBox } from "@rneui/themed";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
 export default function App() {
@@ -10,22 +11,22 @@ export default function App() {
     {
       description: "Do dishes",
       key: 0,
-      checked: false,
+      completed: false,
     },
     {
       description: "Buy groceries",
       key: 1,
-      checked: false,
+      completed: false,
     },
     {
       description: "Clean room",
       key: 2,
-      checked: false,
+      completed: false,
     },
   ];
 
   //starts as false
-  const [isSelected, setIsSelected] = useState(false);
+  // const [isChecked, setIsChecked] = useState(false);
 
   //input
   const [text, setText] = useState("");
@@ -33,9 +34,20 @@ export default function App() {
   const [task, setTask] = useState(list);
   let nextKey = task.length;
 
+  //task check
+  const handleCheck = (key) => {
+    const newCheck = task.map((item) => {
+      if (item.key === key) {
+        return {...item, completed: !item.completed};
+      } 
+      return item;
+    });
+    setTask(newCheck);
+  }
+
   //adding tasks
   function addTask (text) {
-    let newTodo = { description: text, key: nextKey, checked: false};
+    let newTodo = { description: text, key: nextKey, completed: false};
     setTask([...task, newTodo]);
   }
 
@@ -44,16 +56,28 @@ export default function App() {
       <StatusBar style="auto" />
 
       <View style={styles.container}></View>
-      <Text>To-Do List</Text>
+
+      <Text style={styles.title}>To-Do List</Text>
+      
       <View style={styles.checkboxContainer}>
         <FlatList
           data={task}
           renderItem={({ item }) => (
             <View>
+
               <CheckBox
                 title={item.description}
-                checked={isSelected}
-                onPress={() => setIsSelected(!isSelected)}
+                checked={item.completed}
+                // onPress={() => setIsChecked(!isChecked)}
+                onPress={() => {
+                  // setIsChecked(!isChecked)
+                  // style={ textDecorationLine: 'line-through' }
+                  handleCheck(item.key);
+                  // item.checked = !item.checked;
+                  console.log(item.key, item.completed)
+                }}
+                checkedIcon={<FontAwesome name="check-square" size={25} color="#ff9a56" />}
+                uncheckedIcon={<FontAwesome name="square" size={25} color="#cccccc" />}
               />
             </View>
           )
@@ -61,38 +85,23 @@ export default function App() {
           keyExtractor={(item) => item.key}
         />
       </View>
-      <View>
-        
-      </View>
-
-      {/* test for checkbox */}
-      <Text>
-        Is CheckBox selected: {isSelected ? "👍" : "👎"}
-      </Text>
 
       <TextInput
         placeholder="Add todo item..."
         onChangeText={setText}
         value={text}
-        style={{
-          height: 40,
-          padding: 5,
-          marginHorizontal: 8,
-          borderWidth: 1,
-          marginBottom: 40,
-          background: "white",
-        }}
+        style={styles.input}
       />
 
       {/* add task button */}
       <Button
         title="add"
-        style={[styles.button]}
+        // style={[styles.button]}
         onPress={() => {
           addTask(text);
           console.log("item added:", { text }, task);
         }}
-        color="blue"
+        color="#ff9a56"
       ></Button>
     </View>
   );
@@ -101,17 +110,31 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#deb6b6",
+    backgroundColor: "#ffffff",
     alignItems: "center",
     justifyContent: "center",
-    // marginTop: 20,
     marginBottom: 500,
   },
   header: {
     fontSize: 25,
     fontFamily: "sans-serif",
   },
-  button: {
-    marginBottom: 100,
+  // button: {
+  //   marginBottom: 100,
+  // },
+  input: {
+    height: 40,
+    padding: 10,
+    marginHorizontal: 8,
+    borderWidth: 1,
+    marginBottom: 20,
+    borderRadius: 7,
+    backgroundColor: "white",
   },
+  title: {
+    color: "#ff9a56",
+    fontSize: 25,
+    fontWeight: "bold",
+    marginBottom: 20,
+  }
 });
