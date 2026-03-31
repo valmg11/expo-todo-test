@@ -5,7 +5,6 @@ import { TextInput } from "react-native-web";
 import { CheckBox } from "@rneui/themed";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
-
 export default function App() {
   let list = [
     {
@@ -24,9 +23,6 @@ export default function App() {
       completed: false,
     },
   ];
-
-  //starts as false
-  // const [isChecked, setIsChecked] = useState(false);
 
   //input
   const [text, setText] = useState("");
@@ -68,12 +64,8 @@ export default function App() {
               <CheckBox
                 title={item.description}
                 checked={item.completed}
-                // onPress={() => setIsChecked(!isChecked)}
                 onPress={() => {
-                  // setIsChecked(!isChecked)
-                  // style={ textDecorationLine: 'line-through' }
                   handleCheck(item.key);
-                  // item.checked = !item.checked;
                   console.log(item.key, item.completed)
                 }}
                 checkedIcon={<FontAwesome name="check-square" size={25} color="#ff9a56" />}
@@ -96,7 +88,6 @@ export default function App() {
       {/* add task button */}
       <Button
         title="add"
-        // style={[styles.button]}
         onPress={() => {
           addTask(text);
           console.log("item added:", { text }, task);
@@ -119,9 +110,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: "sans-serif",
   },
-  // button: {
-  //   marginBottom: 100,
-  // },
   input: {
     height: 40,
     padding: 10,
